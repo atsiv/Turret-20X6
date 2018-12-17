@@ -14,4 +14,4 @@ Software:
   openCV
   
 
-For your very own fully functional automated or remote turret, splice the relay in line with mostlikely its only cuircit, and connect the 3 wires of the relay to the RPI, one to 5v, one to ground and the last, the signal pin to physical pin 15.  Connect the TRIG wire on the ultrasonic sensor to pin 11, ECHO to 12 and the last to wires are to 5v and ground to pins 4 and 14 respectivly.  Connect a laser module to a 3.7v pin you like and the SIG wire to pin 15.  Any type of camera may work (really only USB and RPi Camera). 
+For your very own fully functional automated or remote turret, splice the relay in line with mostlikely its only cuircit, and connect the 3 wires of the relay to the RPI, one to 5v, one to ground and the last, the signal pin to physical pin 15.  Connect the TRIG wire on the ultrasonic sensor to pin 11, ECHO to 12 and the last to wires are to 5v and ground to pins 4 and 14 respectivly.  Connect a laser module to a 3.7v pin you like and the SIG wire to pin 15.  Any type of camera may work someday (really only USB and RPi Camera). 
