@@ -1,9 +1,17 @@
 import RPi.GPIO as GPIO
 import time
 import argparse
-
+from collections import deque
+from imutils.video import VideoStream
+import numpy as np
+import argparse
+import cv2
+import imutils
+ 
 # Arguments to activate peripherals
 ap = argparse.ArgumentParser()
+ap.add_argument("-r", "--picamera", type=int, default=-1,
+    help="whether or not the Raspberry Pi camera should be used")
 ap.add_argument("-l", "--laser",
         help="Activates laser for target aquisition")
 args =ap.parse_args()
@@ -47,16 +55,26 @@ def distance():
 if args.laser:
 	GPIO.output(laserPin, GPIO.HIGH) #Turns on laser
 	print 'Laser Activated'
-
+	
+# if a video path was not supplied, grab the reference
+# to the webcam
+if args.picamera:
+        vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+ 	# allow the camera or video file to warm up
+	time.sleep(2.0)
+	
+def fire():
+	GPIO.output(RelayPin, GPIO.HIGH) #This relay completes the circuit when energized
+	print 'FIRING!!! Stay Back you Rouge!'
+	time.sleep(2)
+	
 def loop():
 	while True:
 		dis = distance()
 		print dis, 'cm'
 		print ''
 		if int(dis) <= 50:
-			GPIO.output(RelayPin, GPIO.HIGH) #This relay completes the circuit when energized
-			print 'FIRING!!! Stay Back you Rouge!'
-			time.sleep(2)
+			fire()
 		time.sleep(0.2)
 def destroy():
 	GPIO.output(laserPin, GPIO.LOW)     # laser off
